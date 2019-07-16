@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "583836373852",
-    "firebase_url": "https://beckercollege-2197d.firebaseio.com",
-    "project_id": "beckercollege-2197d",
-    "storage_bucket": "beckercollege-2197d.appspot.com"
+    "project_number": "102214320493",
+    "firebase_url": "https://beckertest-59429.firebaseio.com",
+    "project_id": "beckertest-59429",
+    "storage_bucket": "beckertest-59429.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:583836373852:android:2c8aef068a44fd8c",
+        "mobilesdk_app_id": "1:102214320493:android:2c8aef068a44fd8c",
         "android_client_info": {
           "package_name": "com.kryptosmobile.BeckerBlueLight"
         }
       },
       "oauth_client": [
         {
-          "client_id": "583836373852-fujrks6vtt14e55lp3qovk78cestmgra.apps.googleusercontent.com",
+          "client_id": "102214320493-th5leu0uf5kjeejnmdbopeicibkj9ph5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAiM_PPwxT5p8JmKlo5JcDNe_v-AcMkPno"
+          "current_key": "AIzaSyDo_NiW2mxl0iJotdg_NQYesbcSH9uUJNc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "583836373852-fujrks6vtt14e55lp3qovk78cestmgra.apps.googleusercontent.com",
+              "client_id": "102214320493-th5leu0uf5kjeejnmdbopeicibkj9ph5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
