@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "583836373852",
+    "firebase_url": "https://beckercollege-2197d.firebaseio.com",
+    "project_id": "beckercollege-2197d",
+    "storage_bucket": "beckercollege-2197d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583836373852:android:2c8aef068a44fd8c",
+        "android_client_info": {
+          "package_name": "com.kryptosmobile.BeckerBlueLight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583836373852-fujrks6vtt14e55lp3qovk78cestmgra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiM_PPwxT5p8JmKlo5JcDNe_v-AcMkPno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583836373852-fujrks6vtt14e55lp3qovk78cestmgra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

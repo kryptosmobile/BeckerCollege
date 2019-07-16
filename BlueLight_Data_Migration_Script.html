@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/async/2.6.1/async.min.js"></script>
+<style>
+
+table tr td, th{
+
+	border-bottom:1px solid grey;
+	border-right:1px solid grey;
+	padding:2px 2px;
+	max-width:260px;
+	overflow-x:hidden;
+
+}
+table tr {
+
+	border-left:1px solid grey;
+
+}
+input{
+
+	padding:5px;
+
+}
+ /* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+
+</style>
+<script>
+
+
+</script>
+</head>
+<body >
+
+
+<form>
+
+<input type="hidden" id="refreshed" value="no">
+ 
+</form>
+<div id="myLoadingGif" class="loading">Loading&#8230;
+	 
+	
+</div>
+
+	<form method="GET" action="">
+		<table>
+
+		<tr> 
+		    <td><input type="text" placeholder="Tenant ID" name="tenantID" id="tenantID"> </td>
+			<td><input type="text" name="mobappid" placeholder="Mob App ID" id="mobappid"></td> 
+			<td><input type="text" name="subfeature" placeholder="Sub Feature ID" id="subfeature"></td> 
+			
+						
+			<td> <input type="submit" value="search"></td>  
+			<td> <span id="number" style="background:orange;"> </span>  </td> 
+		 </tr>
+
+		</table>
+	
+	 
+	<table>
+
+		<tr> 
+			<td><input type="text" name="openURL" placeholder="U8 open Url to post data" id="openURL"></td> 
+			<td><input type="text" placeholder="Tenant ID u8 to post data" name="tenantIDPost" id="tenantIDPost"> </td>  
+			 
+			<td><input type="submit" id="import" style="background:cyan;" value="Start Import"></td>  
+			
+		 </tr>
+
+		</table>
+	</form>
+	 
+<table style="margin-top:10px; width:100%; background:#eee"><tr><td><div id="updateMessage" style="color:green;">   </div></td>  </tr></table>
+
+<table id="results" style="margin-top:10px"></table>
+
+ <table id="results1"></table>
+ <script>
+ var userProfiles = [];
+ var subfeature = '33938';
+ var tenantID = '';
+ var openURL = 'https://cod-dev.unifyed.com/unifyd-gateway/api/unifydbluelight/open/personal';
+ var mobappid ='2666';
+ var tenantIDPost = '';
+ var guardianDataList = [];
+ let loopCounter = 0;
+ 
+ $(document).ready(function(){
+
+		//https://dev.unifyed.com/public/login/announcement/codunifyed
+		
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+		
+		
+		
+		var userProfile = {};
+		
+		subfeature = getParameterByName('subfeature');
+		tenantID = getParameterByName('tenantID');
+		mobappid = getParameterByName('mobappid');
+		
+		$('#subfeature').val(subfeature);
+		$('#tenantID').val(tenantID);
+		$('#mobappid').val(mobappid);
+		
+		openURL = getParameterByName('openURL');
+		tenantIDPost = getParameterByName('tenantIDPost');
+		
+		
+		$('#openURL').val(openURL);
+		$('#tenantIDPost').val(tenantIDPost);
+		
+        $.post('https://kryptosda.kryptosmobile.com/kryptosds/api/queryTenantData/'+tenantID+'/'+mobappid+'/'+subfeature+'?subFeature=UserProfiles', function(data, status){
+        
+			if(data){
+			
+			
+						userProfiles = data;
+						userProfile =data[0];
+						
+						$('#number').html(userProfiles.length +" Users Found"); 
+						
+						var row = '<tr>';
+ 						row +=  " <th> S.N.</th>";
+						for (var key4 in userProfile) {
+							if (userProfile.hasOwnProperty(key4)) {
+								row +=  " <th> " + key4 +"</th>";
+							}
+						}
+						row +=  " </tr>";
+					$('#results').append(row);
+			
+				for(var i=0; i< data.length; i++){
+				
+						userProfile =data[i];
+						
+						var row = '<tr>';
+						row +=  " <td> " + i +"</td>";
+ 						for (var key in userProfile) {
+							if (userProfile.hasOwnProperty(key)) {
+								 
+								row +=  " <td> " + userProfile[key] +"</td>";
+							}
+						}
+						row += '</tr>';
+						$('#results').append(row);
+             
+				}
+			}			
+		  
+        });
+    
+ 
+
+		//https://dev.unifyed.com/public/login/announcement/codunifyed
+    
+        $.post('https://kryptosda.kryptosmobile.com/kryptosds/api/queryTenantData/'+tenantID+'/'+mobappid+'/'+subfeature+'?subFeature=GuardiansList', function(data, status){
+        
+			if(data){
+			
+			            console.log(data)
+						guardianDataList = data;
+						var  guardianData = data[0];
+						
+						var row1 = '<tr>';
+ 						row1 +=  " <th> S.N.</th>";
+						for (var key1 in guardianData) {
+							if (guardianData.hasOwnProperty(key1)) {
+								row1 +=  " <th> " + key1 +"</th>";
+							}
+						}
+						row1 +=  " </tr>";
+					$('#results1').append(row1);
+			
+				for(var i=0; i< data.length; i++){
+				
+						var guardian =data[i];
+						
+						var row1= '<tr>';
+						 row1 +=  " <td> " + i +"</td>";
+ 						for (var key in guardian) {
+							if (guardian.hasOwnProperty(key)) {
+								
+								row1 +=  " <td> " + guardian[key] +"</td>";
+							}
+						}
+						row1 += '</tr>';
+						$('#results1').append(row1);
+             
+				}
+			}			
+		  
+        });
+		
+		if(subfeature && tenantID && mobappid){
+			$('#import').show();
+		}else{
+		
+			$('#import').hide();
+		}
+		function getParameterByName(name, url) {
+			if (!url) url = window.location.href;
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+		 
+		
+		
+		document.getElementById('myLoadingGif').style.display = 'none';
+
+
+setTimeout(function(){
+	if(openURL && tenantIDPost && openURL != '' && tenantIDPost != ''){
+		
+ 			document.getElementById('myLoadingGif').style.display = 'block';
+			 var count = 1;
+			 
+			 
+			// userProfiles.forEach(function (profile, id) {
+			 	 var iteratee = (profile, cb) => {
+				 console.log("In-----");
+	
+				     if (!profile) {
+                        cb(); 
+                        return;
+                    }
+			
+					//var profile = userProfiles[m];
+					var personalInfodata = {};	
+					var medicalInfo = {};
+					var additionalInfo = {};
+					
+					var address = 'Please enter you address';
+					var email = '';
+					var bloodGroup = '';
+					var sex = '';
+					var phone = '';
+					var lName = '';
+					var fName = '';
+					
+					if(profile.address)
+					address = profile.address;
+					
+					if(profile.email)
+					email = profile.email;
+					
+					if(profile.bloodGroup)
+					bloodGroup = profile.bloodGroup;
+					
+					if(profile.sex)
+					sex = profile.sex;
+					
+					if(profile.age)
+					age = profile.age;
+					
+					if(profile.phone)
+					phone = profile.phone;
+					
+					if(profile.lName)
+					lName = profile.lName;
+					
+					if(profile.fName)
+					fName = profile.fName;
+					 
+         
+					personalInfodata.fname = fName;
+					personalInfodata.lname = lName;
+					personalInfodata.email = email.toLowerCase().trim();
+					personalInfodata.address =  address;
+				    personalInfodata.phone =   phone;
+				    personalInfodata.bloodGroup = bloodGroup ;
+					personalInfodata.sex = sex;
+				    personalInfodata.age = age;				   
+					personalInfodata.pushID = profile.pushID;
+				    personalInfodata.deviceType = profile.deviceType;
+					personalInfodata.medicalInfo ={}; 
+					personalInfodata.additionalInfo ={}; 
+         
+         
+                    var guardiansList= [];
+				for(var n =0 ; n < guardianDataList.length; n++){	
+				
+						if(guardianDataList[n].UserPhn == profile.phone){
+							var gudemail = '';
+							
+							if(guardianDataList[n].gudemail)
+							gudemail = guardianDataList[n].gudemail.toLowerCase();
+							var Guardians = {
+												"guardianPhn":guardianDataList[n].GuardianPhn,
+												"guardianName":guardianDataList[n].guardianName,
+												"gudemail":gudemail,
+												"enabled":guardianDataList[n].enabled
+											};
+							guardiansList.push(Guardians);
+							 
+						}
+					  
+					  personalInfodata.guardiansList = guardiansList;
+					 
+				}
+				
+				console.log("openURL "+openURL);
+				console.log("tenantIDPost "+tenantIDPost);
+				
+				var  openURLGet = openURL +'/'+ personalInfodata.email.trim().toLowerCase();
+				$.ajax({
+					url: openURLGet,
+					type: 'GET',
+					headers: {
+						"X-TENANT-ID": tenantIDPost,  
+						"Content-Type": "application/json",
+						
+					},
+					dataType:"json",
+					
+					success: function (data) {
+				   if(!data || data == null)
+				   {
+					$.ajax({
+					url: openURL,
+					type: 'POST',
+					headers: {
+						"X-TENANT-ID": tenantIDPost,  
+						"Content-Type": "application/json",
+						
+					},
+					dataType:"json",
+					data: JSON.stringify(personalInfodata),
+					
+					success: function (data) {
+				       	
+						$('#updateMessage').append('<div style="width:100%; border-top:1px solid orange;">'+count +" th row data inserted");
+						$('#updateMessage').append( JSON.stringify(personalInfodata));
+						$('#updateMessage').append('</div><br>');
+						count = count+1;
+					}, error: function(error){
+					
+							$('#updateMessage').append('<div style="width:100%; color:red;">' + count +" th row not inserted error:" + JSON.stringify(error));
+													$('#updateMessage').append('<br>');
+													$('#updateMessage').append( JSON.stringify(personalInfodata));
+													$('#updateMessage').append('</div><br>');
+													count = count+1;
+
+					}
+				       	
+					 }) 
+					 }
+					
+						/*$('#updateMessage').append('<div style="width:100%; border-top:1px solid orange;">'+count +" th row data inserted");
+						$('#updateMessage').append( JSON.stringify(personalInfodata));
+						$('#updateMessage').append('</div><br>');
+						count = count+1;  */
+					}, error: function(error){
+					          
+					
+							/*$('#updateMessage').append('<div style="width:100%; color:red;">' + count +" th row not inserted error:" + JSON.stringify(error));
+													$('#updateMessage').append('<br>');
+													$('#updateMessage').append( JSON.stringify(personalInfodata));
+													$('#updateMessage').append('</div><br>');
+													count = count+1; */
+													
+				   $.ajax({
+					url: openURL,
+					type: 'POST',
+					headers: {
+						"X-TENANT-ID": tenantIDPost,  
+						"Content-Type": "application/json",
+						
+					},
+					dataType:"json",
+					data: JSON.stringify(personalInfodata),
+					
+					success: function (data) {
+				       	
+						$('#updateMessage').append('<div style="width:100%; border-top:1px solid orange;">'+count +" th row data inserted");
+						$('#updateMessage').append( JSON.stringify(personalInfodata));
+						$('#updateMessage').append('</div><br>');
+						count = count+1;
+					}, error: function(error){
+					
+							$('#updateMessage').append('<div style="width:100%; color:red;">' + count +" th row not inserted error:" + JSON.stringify(error));
+													$('#updateMessage').append('<br>');
+													$('#updateMessage').append( JSON.stringify(personalInfodata));
+													$('#updateMessage').append('</div><br>');
+													count = count+1;
+
+					}
+				       	
+					 })									
+
+					}
+			   	});
+							setTimeout(()=>{
+								cb();
+							},50)
+			
+				}
+			// })
+			/*for(var m = 0 ; m < userProfiles.length; m++){
+			
+					var profile = userProfiles[m];
+					var personalInfodata = {};	
+					var medicalInfo = {};
+					var additionalInfo = {};
+					
+					var address = 'blnew';
+					var email = 'blnew';
+					var bloodGroup = 'blnew';
+					var sex = 'Male';
+					var phone = '9988776655';
+					var lName = 'blnew';
+					var fName = 'blnew';
+					
+					if(profile.address)
+					address = profile.address;
+					
+					if(profile.email)
+					email = profile.email;
+					
+					if(profile.bloodGroup)
+					bloodGroup = profile.bloodGroup;
+					
+					if(profile.sex)
+					sex = profile.sex;
+					
+					if(profile.age)
+					age = profile.age;
+					
+					if(profile.phone)
+					phone = profile.phone;
+					
+					if(profile.lName)
+					lName = profile.lName;
+					
+					if(profile.fName)
+					fName = profile.fName;
+					 
+         
+					personalInfodata.fname = fName;
+					personalInfodata.lname = lName;
+					personalInfodata.email = email;
+					personalInfodata.address =  address;
+				    personalInfodata.phone =   phone;
+				    personalInfodata.bloodGroup = bloodGroup ;
+					personalInfodata.sex = sex;
+				    personalInfodata.age = age;				   
+					personalInfodata.pushID = profile.pushID;
+				    personalInfodata.deviceType = profile.deviceType;
+					personalInfodata.medicalInfo ={}; 
+					personalInfodata.additionalInfo ={}; 
+         
+         
+                    var guardiansList= [];
+				for(var n =0 ; n < guardianDataList.length; n++){	
+				
+						if(guardianDataList[n].UserPhn == profile.phone){
+							var gudemail = 'blnew';
+							
+							if(guardianDataList[n].gudemail)
+							gudemail = guardianDataList[n].gudemail;
+							var Guardians = {
+												"guardianPhn":guardianDataList[n].GuardianPhn,
+												"guardianName":guardianDataList[n].guardianName,
+												"gudemail":gudemail,
+												"enabled":guardianDataList[n].enabled
+											};
+							guardiansList.push(Guardians);
+							 
+						}
+					  
+					  personalInfodata.guardiansList = guardiansList;
+					 
+				}
+				
+				console.log("openURL "+openURL);
+				console.log("tenantIDPost "+tenantIDPost);
+		//	setTimeout(function(){	
+				$.ajax({
+					url: openURL,
+					type: 'POST',
+					headers: {
+						"X-TENANT-ID": tenantIDPost,  
+						"Content-Type": "application/json",
+						
+					},
+					dataType:"json",
+					data: JSON.stringify(personalInfodata),
+					
+					success: function (data) {
+						
+						$('#updateMessage').append('<div style="width:100%; border-top:1px solid orange;">'+count +" th row data inserted");
+						$('#updateMessage').append( JSON.stringify(personalInfodata));
+						$('#updateMessage').append('</div><br>');
+						count = count+1;
+					}, error: function(error){
+					
+						
+							
+
+							$('#updateMessage').append('<div style="width:100%; color:red;">' + count +" th row not inserted error:" + JSON.stringify(error));
+													$('#updateMessage').append('<br>');
+													$('#updateMessage').append( JSON.stringify(personalInfodata));
+													$('#updateMessage').append('</div><br>');
+													count = count+1;
+
+					}
+				});
+		//	}, 1000);
+				
+			 }*/
+			
+			document.getElementById('myLoadingGif').style.display = 'none';
+			
+			async.eachLimit(userProfiles, 1, iteratee, (err, res) => {
+               if(err) console.log(err)
+              else {
+                console.log("Migration done");
+               }
+        })
+		}
+		
+		
+	 
+		
+	 }, 5000);
+	 
+	 });
+ </script>
+</body>
+</html>
+
+ 

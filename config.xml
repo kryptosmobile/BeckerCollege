@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id = "com.kryptosmobile.BeckerBlueLight" version   = "1.0.5">
+        <name>Becker Bluelight</name>
+        <description>Becker Migration Bluelight U8</description>
+        <author href="http://kryptosmobile.com" email="info@kryptosmobile.com">Unifyed Team</author>
+        <feature name="http://api.phonegap.com/1.0/device" />
+        
+      <preference name='phonegap-version' value='cli-7.1.0' />
+        <preference name="permissions" value="none"/>
+  <preference name="orientation" value="portrait"/>
+  <!-- all: default means both landscape and portrait are enabled -->
+  <preference name="target-device" value="universal"/>
+  <!-- all: possible values handset, tablet, or universal -->
+  <preference name="fullscreen" value="false"/>
+  <!-- all: hides the status bar at the top of the screen -->
+  <preference name="webviewbounce" value="false"/>
+  <!-- ios: control whether the screen 'bounces' when scrolled beyond the top -->
+  <preference name="prerendered-icon" value="true"/>
+  <!-- ios: if icon is prerendered, iOS will not apply it's gloss to the app's icon on the user's home screen -->
+  <preference name="stay-in-webview" value="false"/>
+  <!-- ios: external links should open in the default browser, 'true' would use the webview the app lives in -->
+  <preference name="ios-statusbarstyle" value="black-opaque"/>
+  <!-- ios: black-translucent will appear black because the PhoneGap webview doesn't go beneath the status bar -->
+  <preference name="detect-data-types" value="true"/>
+  <!-- ios: controls whether data types (such as phone no. and dates) are automatically turned into links by the system -->
+  <preference name="exit-on-suspend" value="false"/>
+  <!-- ios: if set to true, app will terminate when home button is pressed -->
+  <preference name="show-splash-screen-spinner" value="true"/>
+  <!-- ios: if set to false, the spinner won't appear on the splash screen during app loading -->
+  <preference name="auto-hide-splash-screen" value="true"/>
+  <!-- ios: if set to false, the splash screen must be hidden using a JavaScript API -->
+  <preference name="disable-cursor" value="false"/>
+  <!-- blackberry: prevents a mouse-icon/cursor from being displayed on the app -->
+  <preference name="android-minSdkVersion" value="21"/>
+  <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+
+  <preference name="android-targetSdkVersion" value="28"/>
+
+  <preference name="android-installLocation" value="auto"/>
+  <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
+        <preference name="SplashScreenDelay" value="5000" />
+        <preference name="StatusBarOverlaysWebView" value="false" />
+        <preference name="StatusBarBackgroundColor" value="#000000" />
+        <preference name="StatusBarStyle" value="lightcontent" />
+        <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
+        <preference name="SplashMaintainAspectRatio" value="true" />
+        <preference name="SplashScreenSpinnerColor" value="#680003" />
+
+
+  <engine name="ios" spec="latest"/>
+
+  <icon src="icon.png"/>
+  <platform name="android">
+    <icon density="ldpi" src="res/icon/android/icon-36-ldpi.png"/>
+    <icon density="mdpi" src="res/icon/android/icon-48-mdpi.png"/>
+    <icon density="hdpi" src="res/icon/android/icon-72-hdpi.png"/>
+    <icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png"/>
+    <icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png"/>
+    <icon density="xxxhdpi" src="res/icon/android/icon-192-xxxhdpi.png"/>
+
+    <splash src="res/screen/android/screen-ldpi-portrait.png" density="ldpi"/>
+    <splash src="res/screen/android/screen-mdpi-portrait.png" density="mdpi"/>
+    <splash src="res/screen/android/screen-hdpi-portrait.png" density="hdpi"/>
+    <splash src="res/screen/android/screen-xhdpi-portrait.png" density="xhdpi"/>
+  </platform>
+  <platform name="ios">
+    <icon height="29" src="res/icon/ios/icon-small.png" width="29"/>
+    <icon height="58" src="res/icon/ios/icon-small-2x.png" width="58"/>
+    <icon height="87" src="res/icon/ios/icon-small-3x.png" width="87"/>
+    <icon height="40" src="res/icon/ios/icon-40.png" width="40"/>
+    <icon height="80" src="res/icon/ios/icon-40-2x.png" width="80"/>
+    <icon height="120" src="res/icon/ios/icon-40-3x.png" width="120"/>
+    <icon height="50" src="res/icon/ios/icon-50.png" width="50"/>
+    <icon height="100" src="res/icon/ios/icon-50-2x.png" width="100"/>
+    <icon height="57" src="res/icon/ios/icon-57.png" width="57"/>
+    <icon height="114" src="res/icon/ios/icon-57-2x.png" width="114"/>
+    <icon height="60" src="res/icon/ios/icon-60.png" width="60"/>
+    <icon height="120" src="res/icon/ios/icon-60-2x.png" width="120"/>
+    <icon height="180" src="res/icon/ios/icon-60-3x.png" width="180"/>
+    <icon height="72" src="res/icon/ios/icon-72.png" width="72"/>
+    <icon height="144" src="res/icon/ios/icon-72-2x.png" width="144"/>
+    <icon height="76" src="res/icon/ios/icon-76.png" width="76"/>
+    <icon height="152" src="res/icon/ios/icon-76-2x.png" width="152"/>
+    <icon height="167" src="res/icon/ios/icon-83.5-2x.png" width="167"/>
+
+    <splash src="res/screen/ios/Default@2x~iphone~anyany.png"/>
+
+    <splash src="res/screen/ios/Default@2x~iphone~comany.png"/>
+
+    <splash src="res/screen/ios/Default@2x~iphone~comcom.png"/>
+
+    <splash src="res/screen/ios/Default@3x~iphone~anyany.png"/>
+
+    <splash src="res/screen/ios/Default@3x~iphone~anycom.png"/>
+
+    <splash src="res/screen/ios/Default@3x~iphone~comany.png"/>
+
+    <splash src="res/screen/ios/Default@2x~ipad~anyany.png"/>
+
+    <splash src="res/screen/ios/Default@2x~ipad~comany.png"/>
+
+    <edit-config target="LSApplicationQueriesSchemes" file="*-Info.plist" mode="merge" overwrite="true">
+      <array>
+        <string>moodlemobile</string>
+        <string>bblearn</string>
+        <string>fb</string>
+        <string>twitter</string>
+        <string>instagram</string>
+        <string>guideeab</string>
+        <string>linkedin</string>
+        <string>expapp226</string>
+        <string>fb373810602704245ddefebad</string>
+        <string>bbstudent</string>
+        <string>blackboard</string>
+        <string>bbinstructor</string>
+      </array>
+    </edit-config>
+  </platform>
+
+  <gap:splash src="splash.png"/>
+
+
+  <access origin="*"/>
+  <allow-navigation href="*"/>
+  <allow-intent href="*"/>
+  <plugin name="cordova-plugin-contacts" source="npm" spec="2.0.0">
+    <variable name="CONTACTS_USAGE_DESCRIPTION" value="To add contact"/>
+  </plugin>
+  <gap:plugin name="cordova-plugin-camera" source="npm" spec="2.4.1"/>
+  <gap:plugin name="cordova-plugin-device" source="npm"/>
+  <gap:plugin name="cordova-plugin-dialogs" source="npm"/>
+  <gap:plugin name="cordova-plugin-file-transfer" source="npm" spec="1.6.3"/>
+  <gap:plugin name="cordova-plugin-geolocation" source="npm" spec="2.4.3"/>
+  <gap:plugin name="cordova-plugin-geolocation" source="npm"/>
+  <gap:plugin name="cordova-plugin-inappbrowser" source="npm"/>
+  <gap:plugin name="cordova-plugin-network-information" source="npm"/>
+  <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
+  <gap:plugin name="cordova-plugin-statusbar" source="npm"/>
+
+  <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
+  <gap:plugin name="cordova-plugin-globalization" source="npm"/>
+  <gap:plugin name="cordova-plugin-datepicker" source="npm"/>
+  <gap:plugin name="cordova-plugin-screen-orientation" source="npm"/>
+
+  <!--<preference name="android-build-tool" value="gradle" />-->
+
+  <gap:plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">
+    <param name="SENDER_ID" value="583836373852"/>
+  </gap:plugin>
+  
+  <platform name="android">
+        	<resource-file src="google-services.json" target="/google-services.json" />
+    	</platform>  
+
+  <!--<gap:plugin name="phonegap-plugin-push" source="npm">
+    <param name="SENDER_ID" value="719376444178"/>
+  </gap:plugin>-->
+  <!--<gap:plugin name="cordova-plugin-customurlscheme" source="npm">
+            <param name="URL_SCHEME" value="cccbluelight" />
+        </gap:plugin>-->
+
+  <!-- ios sms plugin -->
+  <!--<plugin spec="https://github.com/DevendraSinghNagar/cordova-sms-all-devices-plugin.git" source="git" />-->
+
+  <!-- Android sms plugin -->
+  <!--<gap:plugin name="cordova-plugin-sms" source="npm" />-->
+
+  <gap:plugin name="cordova-plugin-actionsheet" source="npm"/>
+  <gap:plugin name="cordova-plugin-x-socialsharing" source="npm" spec="5.4.1"/>
+  <gap:plugin name="cordova-plugin-app-launcher" source="npm"/>
+  <gap:plugin name="cordova-plugin-appavailability" source="npm"/>
+  <gap:plugin name="cordova-plugin-phonedialer" source="npm"/>
+
+  <plugin spec="https://github.com/ti8m/DocumentHandler.git" source="git"/>
+
+  <plugin spec="https://github.com/venkykowshik/startapp.git" source="git"/>
+
+  <gap:config-file platform="ios" parent="NSContactsUsageDescription" overwrite="true">
+        <string>Need contacts access to add individuals</string>
+    </gap:config-file>
+
+
+
+    <gap:config-file platform="ios" parent="UIStatusBarHidden" overwrite="true">
+      
+    </gap:config-file>
+
+
+
+
+    <platform name="ios">
+
+        <edit-config file="*-Info.plist" target="UIViewControllerBasedStatusBarAppearance" mode="merge">
+        </edit-config>
+
+
+        <edit-config target="LSApplicationQueriesSchemes" file="*-Info.plist" mode="merge" overwrite="true">
+      <array>
+        <string>moodlemobile</string>
+        <string>bblearn</string>
+        <string>fb</string>
+        <string>twitter</string>
+        <string>instagram</string>
+        <string>guideeab</string>
+        <string>linkedin</string>
+        <string>expapp226</string>
+        <string>fb373810602704245ddefebad</string>
+        <string>bbstudent</string>
+        <string>blackboard</string>
+        <string>bbinstructor</string>
+      </array>
+    </edit-config>
+    </platform>
+
+    <!--<gap:config-file platform="ios" parent="CFBundleVersion">
+        <string>1.0.0</string>
+    </gap:config-file>-->
+<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>App would like to access the current location to show the direction to different campus locations</string>
+</edit-config>
+
+
+<edit-config target="NSLocationAlwaysUsageDescription" file="*-Info.plist" mode="merge">
+    <string>App would like to access the current location to show the direction to different campus locations</string>
+</edit-config>
+
+<!--<edit-config file="AndroidManifest.xml" target="/manifest/uses-sdk" mode="merge">
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="26" />
+</edit-config>-->
+
+
+
+<!--<platform name="android">
+    <resource-file src="google-services.json" target="/google-services.json" />
+    <activity android:exported="true" android:name="com.adobe.phonegap.push.BackgroundHandlerActivity" android:permission="${applicationId}.permission.BackgroundHandlerActivity">
+            <intent-filter>
+                <action android:name="com.adobe.phonegap.push.background.MESSAGING_EVENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+</platform>-->
+
+<platform name="android">
+
+        <resource-file src="google-services.json" target="/google-services.json" />
+
+    </platform>
+</widget>
